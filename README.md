@@ -30,8 +30,8 @@ This project implements a fully serverless image upload and metadata management 
    - Stores the image in an S3 bucket.
    - Saves metadata in DynamoDB.
    - Logs execution via CloudWatch.
+![System Architecture](project-diagram.png)
 
-> `project-diagram.png`
 
 ---
 
