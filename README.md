@@ -34,4 +34,50 @@ This project implements a fully serverless image upload and metadata management 
 
 
 ---
+## Deployment Steps
+1. Create S3 Bucket
+   - Name: image-upload-bucket
+   - Enable public read or presigned URL access (optional)
+   - Enable permissions for Lambda
 
+2. Create DynamoDB Table
+   - Name: ImageMetadata
+   - Primary key: id (string)
+
+3. Create IAM Role for Lambda
+  * Permissions:
+  - s3:PutObject
+  - dynamodb:PutItem
+  * logs:*
+
+4. Create Lambda Function
+
+  - Name: upload_image
+  - Runtime: Python 3.12
+  - Handler: lambda_function.lambda_handler
+  - Environment variables: BUCKET_NAME - TABLE_NAME
+
+5. Create API Gateway
+  - Method: POST /upload
+  - Integration type: Lambda proxy
+  - Enable CORS for browser access
+
+6. Route 53 Setup
+  - Create or configure a domain (e.g., mennaimages.com)
+  - Add a hosted zone
+  - Map upload.mennaimages.com to the API Gateway custom domain name
+
+7. Enable CloudWatch Logging
+  - View logs for Lambda function execution and errors
+
+--- 
+## Learning Outcomes
+1. Build a serverless image uploader using core AWS services
+
+2. Use API Gateway + Lambda to process secure HTTP requests
+
+3. Store image files in S3 and metadata in DynamoDB
+
+4. Monitor and debug using CloudWatch
+
+5. Configure a custom domain using Route 53
