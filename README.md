@@ -1,6 +1,5 @@
 # Manara_Project
 # Serverless Image Processing with S3 and Lambda
-# Smart Serverless Image Uploader with AWS
 
 ## Project Description
 
@@ -9,45 +8,30 @@ This project implements a fully serverless image upload and metadata management 
 ---
 
 ##  AWS Services Used
+| Service               | Purpose                                                              |
+|------------------------|----------------------------------------------------------------------|
+| **Amazon Route 53**     | Manages the custom domain for the API                               |
+| **Amazon API Gateway**  | Provides the public REST API endpoint to trigger the workflow       |
+| **AWS Lambda**          | Executes logic for validation, processing, uploading, and saving data|
+| **Amazon S3**           | Stores original and processed image files                           |
+| **Amazon DynamoDB**     | Stores image metadata (filename, size, upload date)                 |
+| **Amazon CloudWatch**   | Logs function execution and monitors performance                    |
+| **IAM Roles**           | Manages secure access between AWS services                          |
 
-| Service              | Purpose                                                                 |
-|----------------------|-------------------------------------------------------------------------|
-| **Amazon S3**         | Stores original uploaded images                                          |
-| **AWS Lambda**        | Handles image processing and metadata storage                           |
-| **Amazon DynamoDB**   | Stores metadata of uploaded images (e.g., name, type, timestamp, S3 key)|
-| **Amazon API Gateway**| Provides REST API endpoint for image upload                             |
-| **Amazon CloudWatch** | Logs Lambda execution and tracks performance                            |
-| **IAM Roles**         | Manages secure access to AWS resources                                  |
 
 ---
 
 ##  Architecture Overview
-
-1. The user uploads an image through an HTTP request (via frontend or Postman).
-2. The request is sent to Amazon API Gateway.
-3. API Gateway triggers a Lambda function.
-4. Lambda:
+1. The user accesses the service via `https://upload.mennaimages.com`.
+2. API Gateway receives the image upload request and triggers a Lambda Function.
+3. Lambda:
    - Stores the image in an S3 bucket.
    - Saves metadata in DynamoDB.
    - Logs execution via CloudWatch.
+4. CloudWatch monitors and logs all Lambda executions.
+
 ![System Architecture](diagram.png)
 
 
 ---
 
-## API Endpoint
-
-| Method | Endpoint    | Description               |
-|--------|-------------|---------------------------|
-| POST   | `/upload`   | Upload image via base64   |
-
----
-
-## Sample JSON Payload (for POST request)
-
-```json
-{
-  "filename": "photo.jpg",
-  "content_type": "image/jpeg",
-  "image_base64": "BASE64_ENCODED_IMAGE_HERE"
-}
