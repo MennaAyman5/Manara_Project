@@ -45,30 +45,27 @@ This project implements a fully serverless image upload and metadata management 
    - Primary key: id (string)
 
 3. Create IAM Role for Lambda
-  * Permissions:
-  - s3:PutObject
-  - dynamodb:PutItem
-  * logs:*
+   - Permissions: s3:PutObject - dynamodb:PutItem
+   - logs:*
 
 4. Create Lambda Function
-
-  - Name: upload_image
-  - Runtime: Python 3.12
-  - Handler: lambda_function.lambda_handler
-  - Environment variables: BUCKET_NAME - TABLE_NAME
+   - Name: upload_image
+   - Runtime: Python 3.12
+   - Handler: lambda_function.lambda_handler
+   - Environment variables: BUCKET_NAME - TABLE_NAME
 
 5. Create API Gateway
-  - Method: POST /upload
-  - Integration type: Lambda proxy
-  - Enable CORS for browser access
+   - Method: POST /upload
+   - Integration type: Lambda proxy
+   - Enable CORS for browser access
 
 6. Route 53 Setup
-  - Create or configure a domain (e.g., mennaimages.com)
-  - Add a hosted zone
-  - Map upload.mennaimages.com to the API Gateway custom domain name
+   - Create or configure a domain (e.g., mennaimages.com)
+   - Add a hosted zone
+   - Map upload.mennaimages.com to the API Gateway custom domain name
 
 7. Enable CloudWatch Logging
-  - View logs for Lambda function execution and errors
+   - View logs for Lambda function execution and errors
 
 --- 
 ## Learning Outcomes
